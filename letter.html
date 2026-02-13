@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Cedarville+Cursive&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .letter-content { font-family: 'Caveat', cursive; }
+        .cursive-hero { font-family: 'Cedarville Cursive', cursive; color: #8B0000; font-size: clamp(4rem, 18vw, 10rem); line-height: 1.3; font-weight: 400; letter-spacing: 0.02em; }
+        .photo-stack img { display: block; width: 100%; height: auto; object-fit: cover; border-radius: 0.5rem; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+    </style>
+</head>
+<body class="m-0 p-0 w-full relative" style="background-color: #fff5f5;">
+    <!-- Above the fold: photo left (larger), text right -->
+    <section class="min-h-screen flex items-center justify-start p-6 sm:p-8 sm:pl-10 relative">
+        <h1 id="valentines-heading" class="absolute left-1/2 top-12 -translate-x-1/2 text-center z-20 text-6xl sm:text-7xl md:text-8xl font-normal leading-tight whitespace-nowrap" style="color: #8B0000; font-family: 'Cedarville Cursive', cursive;">Happy Valentines Day!</h1>
+        <div class="w-full max-w-6xl flex flex-row gap-8 sm:gap-10 flex-nowrap relative items-start mt-20 sm:mt-24">
+            <div class="flex flex-col flex-shrink-0 w-[min(100%,380px)] photo-stack pt-20 sm:pt-28">
+                <img src="valentines day1.png" alt="First Valentine's day" class="aspect-[3/4] object-center w-full">
+            </div>
+            <div class="letter-content text-[#2c1810] text-xl sm:text-2xl md:text-3xl leading-relaxed pt-20 sm:pt-28 flex-1 min-w-0 ml-4 sm:ml-8">
+                <p class="mb-4">Dear Rishi,</p>
+                <p class="mb-4">I call you bangaram because you are truly nothing short of that — everything you touch turns into pure gold and there is love and genuineness in your every action. And truly, I am the luckiest girl on the planet to be able to receive such a love from you.</p>
+                <p class="mb-4">You make me feel so happy and so cared for. You are kind and funny and smart and you have intertwined yourself to me in such a way that who I am is simply a reflection of our time together. You have made me more patient (believe it or not lol), kinder to myself, and you have made me love and notice parts of me I haven't before. I look in the mirror and see you.</p>
+                <p class="mb-4">I love you SO much and not a single day goes by where I am not eternally thankful that you are in my life. And though I have others, it was <em>you</em> who was the missing piece in my life and <em>you</em> who took up a permanent vacancy in my heart :)</p>
+                <p class="mb-4">p.s. I know all of this is very small and simple (you deserve the world), but the next time I do something like this, it will probably be better... LOL</p>
+                <p class="text-right mt-8">Love,<br>Dyuthi</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to mailbox (lower right); sets flag so typewriter does not repeat on index -->
+    <a id="back-to-mailbox" href="index.html" class="fixed bottom-24 right-6 px-5 py-3 rounded-full bg-pink-200 text-pink-900 text-base font-medium no-underline hover:bg-pink-300 transition-colors shadow-md" aria-label="Back to mailbox">BACK →</a>
+    <!-- One more thing (below Back) -->
+    <a href="#" class="fixed bottom-6 right-6 px-5 py-3 rounded-full bg-pink-200 text-pink-900 text-base font-medium no-underline hover:bg-pink-300 transition-colors shadow-md" aria-label="One more thing">One more thing!</a>
+    <script>
+        document.getElementById('back-to-mailbox').addEventListener('click', function (e) {
+            e.preventDefault();
+            try { sessionStorage.setItem('returnedFromLetter', '1'); } catch (_) {}
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

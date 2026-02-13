@@ -1,0 +1,191 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Hearts</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="m-0 p-0 overflow-hidden" style="background-color: #8B0000;">
+    <div class="relative h-screen w-screen">
+        <!-- Landing: mailbox, envelope, typewriter text -->
+        <div id="gate-content" class="absolute inset-0 z-10 flex flex-col w-full overflow-hidden">
+            <div class="mailbox-wrapper absolute inset-0 flex items-center justify-center overflow-hidden">
+                <div class="mailbox-inner relative inline-block max-w-[100vw] max-h-[95vh]">
+                    <img src="love mail.png" alt="Love Mail" class="mailbox-landing w-auto h-auto max-w-[100vw] max-h-[95vh] object-contain object-center drop-shadow-2xl pointer-events-none block">
+                    <div class="envelope-slot-window absolute left-1/2 top-[43%] z-10 w-[38%] -translate-x-1/2">
+                        <img id="envelope-open-modal" src="envelope.png" alt="Open letter" class="envelope-from-slot block w-full h-auto object-contain object-top drop-shadow-md cursor-pointer" aria-hidden="true">
+                    </div>
+                </div>
+            </div>
+            <p id="landing-typewriter-text" class="landing-typewriter-line absolute left-4 top-1/2 -translate-y-1/2 text-white text-sm sm:text-base max-w-[42vw] z-10" aria-live="polite">
+                <span id="landing-typewriter-visible"></span><span id="landing-typewriter-line2" class="landing-typewriter-line2"></span><span id="landing-typewriter-cursor" class="landing-typewriter-cursor-hidden" aria-hidden="true">|</span>
+            </p>
+        </div>
+
+        <!-- Letter modal: paper look, "click to see more" below -->
+        <div id="letter-modal" class="letter-modal-overlay fixed inset-0 z-50 flex flex-col items-center justify-center p-4 bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300">
+            <div id="letter-modal-paper" class="letter-paper rounded-sm shadow-2xl w-[min(95vw,760px)] min-h-[min(92vw,540px)] max-h-[75vh] overflow-y-auto p-8 sm:p-10 relative" onclick="event.stopPropagation()">
+                <button type="button" id="letter-modal-close" class="absolute top-3 right-3 w-8 h-8 flex items-center justify-center rounded-full text-[#2c1810]/60 hover:bg-black/10 transition-colors" aria-label="Close">✕</button>
+                <div class="flex flex-row gap-6 flex-nowrap">
+                    <div class="flex flex-col flex-shrink-0 w-[min(100%,280px)]">
+                        <img src="valentines day1.png" alt="First Valentine's day" class="w-full h-auto object-cover rounded">
+                        <p class="text-[#2c1810]/80 text-sm mt-2 italic">Throwback to our first ever valentine's day! we look so young lol</p>
+                    </div>
+                    <div class="letter-content text-[#2c1810] text-base sm:text-lg leading-relaxed pt-2 flex-1 min-w-0">
+                        <p class="mb-4">Dear Rishi,</p>
+                        <p class="mb-4">I call you bangaram because you are truly nothing short of that — everything you touch turns into pure gold and there is love and genuineness in your every action. And truly, I am the luckiest girl on the planet to be able to receive such a love from you.</p>
+                        <div id="letter-modal-rest" class="hidden">
+                            <p class="mb-4">You make me feel so happy and so cared for. You are kind and funny and smart and you have intertwined yourself to me in such a way that who I am is simply a reflection of our time together. You have made me more patient (believe it or not lol), kinder to myself, and you have made me love and notice parts of me I haven't before. I look in the mirror and see you.</p>
+                            <p class="mb-4">I love you SO much and not a single day goes by where I am not eternally thankful that you are in my life. And though I have others, it was <em>you</em> who was the missing piece in my life and <em>you</em> who took up a permanent vacancy in my heart :)</p>
+                            <p class="mb-4">p.s. I know all of this is very small and simple (you deserve the world), but the next time I do something like this, it will probably be better... LOL</p>
+                            <p class="text-right mt-8">Love,<br>Dyuthi</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="letter.html" class="letter-modal-more mt-4 text-white text-sm underline hover:no-underline focus:outline-none">click to see more</a>
+        </div>
+
+        <!-- Canvas Background -->
+        <div class="absolute inset-0 bg-gradient-to-br from-[#8B0000] to-[#5c0000]"></div>
+        
+        <!-- Subtle overlay -->
+        <div class="absolute inset-0 bg-black/10 pointer-events-none"></div>
+    </div>
+
+    <style>
+        .mailbox-inner {
+            display: inline-block;
+            line-height: 0;
+        }
+        .envelope-slot-window {
+            /* envelope is revealed from top to bottom here, then stays fully visible */
+        }
+        .envelope-from-slot {
+            clip-path: inset(92% 0 0 0);
+            animation: envelope-emerge 5s ease-out 0.8s forwards;
+        }
+        @keyframes envelope-emerge {
+            from {
+                clip-path: inset(92% 0 0 0);
+                transform: translateY(-112%);
+            }
+            to {
+                clip-path: inset(0 0 0 0);
+                transform: translateY(-20%);
+            }
+        }
+        .typewriter-line,
+        .landing-typewriter-line {
+            font-family: 'Special Elite', 'American Typewriter', 'Courier New', monospace;
+        }
+        .landing-typewriter-line {
+            line-height: 1.5;
+        }
+        .landing-typewriter-line2 {
+            display: block;
+            margin-top: 0.15em;
+        }
+        #landing-typewriter-cursor.landing-typewriter-cursor-hidden {
+            display: none;
+        }
+        .landing-typewriter-line2.pop-down {
+            animation: landing-line2-pop 0.4s ease-out forwards;
+        }
+        @keyframes landing-line2-pop {
+            from {
+                transform: translateY(-6px);
+                opacity: 0.7;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .typewriter-cursor {
+            animation: typewriter-blink 0.7s step-end infinite;
+        }
+        @keyframes typewriter-blink {
+            50% { opacity: 0; }
+        }
+        .letter-modal-overlay.letter-modal-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .letter-paper {
+            font-family: 'Special Elite', 'American Typewriter', 'Courier New', monospace;
+            background: linear-gradient(to bottom, #faf6f0 0%, #f5efe6 100%);
+            border: 1px solid rgba(0,0,0,0.06);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15), 0 0 1px rgba(0,0,0,0.1);
+        }
+    </style>
+
+    <script>
+        (function () {
+            var line1 = document.getElementById('landing-typewriter-visible');
+            var line2 = document.getElementById('landing-typewriter-line2');
+            var cursor = document.getElementById('landing-typewriter-cursor');
+            if (!line1) return;
+            var msg1 = "Hey there, looks like there's a note waiting for you... ";
+            var msg2 = "click on it to open~";
+            try {
+                if (sessionStorage.getItem('returnedFromLetter')) {
+                    sessionStorage.removeItem('returnedFromLetter');
+                    line1.textContent = msg1;
+                    if (line2) {
+                        line2.textContent = msg2;
+                        line2.classList.add('pop-down');
+                    }
+                    window.__landingTypewriterDone = true;
+                    return;
+                }
+            } catch (_) {}
+            var speed = 85;
+            var step = 0;
+            var i = 0;
+            function typeNext() {
+                if (step === 0) {
+                    if (i < msg1.length) {
+                        line1.textContent += msg1.charAt(i);
+                        i++;
+                        setTimeout(typeNext, speed);
+                    } else {
+                        step = 1;
+                        i = 0;
+                        if (line2) line2.classList.add('pop-down');
+                        setTimeout(typeNext, speed);
+                    }
+                } else if (step === 1) {
+                    if (i < msg2.length) {
+                        line2.textContent += msg2.charAt(i);
+                        i++;
+                        setTimeout(typeNext, speed);
+                    } else {
+                        if (cursor) cursor.style.opacity = '1';
+                        window.__landingTypewriterDone = true;
+                    }
+                }
+            }
+            setTimeout(typeNext, 600);
+        })();
+
+        (function () {
+            var envelopeBtn = document.getElementById('envelope-open-modal');
+            var modal = document.getElementById('letter-modal');
+            var closeBtn = document.getElementById('letter-modal-close');
+            if (!envelopeBtn || !modal) return;
+            envelopeBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                if (window.__landingTypewriterDone) modal.classList.add('letter-modal-open');
+            });
+            if (closeBtn) closeBtn.addEventListener('click', function () {
+                modal.classList.remove('letter-modal-open');
+            });
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) modal.classList.remove('letter-modal-open');
+            });
+        })();
+    </script>
+</body></html>
